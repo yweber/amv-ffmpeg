@@ -11,15 +11,15 @@ CFLAGS=$(OPTFLAGS) -I$(BUILD_ROOT) -I$(SRC_PATH) -I$(SRC_PATH)/libavutil \
        -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_ISOC9X_SOURCE -DHAVE_AV_CONFIG_H
 LDFLAGS+= -g
 
-PROGS-$(CONFIG_FFMPEG)   += ffmpeg
-PROGS-$(CONFIG_FFPLAY)   += ffplay
-PROGS-$(CONFIG_FFSERVER) += ffserver
+PROGS-$(CONFIG_FFMPEG)   += amv-ffmpeg
+PROGS-$(CONFIG_FFPLAY)   += amv-ffplay
+PROGS-$(CONFIG_FFSERVER) += amv-ffserver
 
 PROGS       = $(addsuffix   $(EXESUF), $(PROGS-yes))
 PROGS_G     = $(addsuffix _g$(EXESUF), $(PROGS-yes))
 MANPAGES    = $(addprefix doc/, $(addsuffix .1, $(PROGS-yes)))
 
-BASENAMES   = ffmpeg ffplay ffserver
+BASENAMES   = amv-ffmpeg amv-ffplay amv-ffserver
 ALLPROGS    = $(addsuffix   $(EXESUF), $(BASENAMES))
 ALLPROGS_G  = $(addsuffix _g$(EXESUF), $(BASENAMES))
 ALLMANPAGES = $(addsuffix .1, $(BASENAMES))
@@ -81,13 +81,13 @@ ifeq ($(CONFIG_SWSCALER),yes)
 	$(MAKE) -C libswscale  all
 endif
 
-ffmpeg_g$(EXESUF): ffmpeg.o cmdutils.o .libs
+amv-ffmpeg_g$(EXESUF): ffmpeg.o cmdutils.o .libs
 	$(CC) $(LDFLAGS) -o $@ ffmpeg.o cmdutils.o $(EXTRALIBS)
 
-ffserver$(EXESUF): ffserver.o cmdutils.o .libs
+amv-ffserver$(EXESUF): ffserver.o cmdutils.o .libs
 	$(CC) $(LDFLAGS) $(FFSERVERLDFLAGS) -o $@ ffserver.o cmdutils.o $(EXTRALIBS)
 
-ffplay_g$(EXESUF): ffplay.o cmdutils.o .libs
+amv-ffplay_g$(EXESUF): ffplay.o cmdutils.o .libs
 	$(CC) $(LDFLAGS) -o $@ ffplay.o cmdutils.o $(EXTRALIBS) $(SDL_LIBS)
 
 %$(EXESUF): %_g$(EXESUF)
@@ -126,8 +126,8 @@ vhook/%.o: vhook/%.c
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-documentation: $(addprefix doc/, ffmpeg-doc.html faq.html ffserver-doc.html \
-                                 ffplay-doc.html general.html hooks.html \
+documentation: $(addprefix doc/, amv-ffmpeg-doc.html amv-faq.html amv-ffserver-doc.html \
+                                 amv-ffplay-doc.html general.html hooks.html \
                                  $(ALLMANPAGES))
 
 doc/%.html: doc/%.texi
@@ -269,18 +269,18 @@ LIBAV_REFFILE    = $(SRC_PATH)/tests/libav.regression.ref
 ROTOZOOM_REFFILE = $(SRC_PATH)/tests/rotozoom.regression.ref
 SEEK_REFFILE     = $(SRC_PATH)/tests/seek.regression.ref
 
-test-server: ffserver$(EXESUF) tests/vsynth1/00.pgm tests/asynth1.sw
+test-server: amv-ffserver$(EXESUF) tests/vsynth1/00.pgm tests/asynth1.sw
 	@echo
 	@echo "Unfortunately ffserver is broken and therefore its regression"
 	@echo "test fails randomly. Treat the results accordingly."
 	@echo
 	$(SRC_PATH)/tests/server-regression.sh $(FFSERVER_REFFILE) $(SRC_PATH)/tests/test.conf
 
-codectest mpeg4 mpeg ac3 snow snowll: ffmpeg$(EXESUF) tests/vsynth1/00.pgm tests/vsynth2/00.pgm tests/asynth1.sw tests/tiny_psnr$(EXESUF)
+codectest mpeg4 mpeg ac3 snow snowll: amv-ffmpeg$(EXESUF) tests/vsynth1/00.pgm tests/vsynth2/00.pgm tests/asynth1.sw tests/tiny_psnr$(EXESUF)
 	$(SRC_PATH)/tests/regression.sh $@ $(FFMPEG_REFFILE)   tests/vsynth1
 	$(SRC_PATH)/tests/regression.sh $@ $(ROTOZOOM_REFFILE) tests/vsynth2
 
-libavtest: ffmpeg$(EXESUF) tests/vsynth1/00.pgm tests/asynth1.sw
+libavtest: amv-ffmpeg$(EXESUF) tests/vsynth1/00.pgm tests/asynth1.sw
 	$(SRC_PATH)/tests/regression.sh $@ $(LIBAV_REFFILE) tests/vsynth1
 
 seektest: tests/seek_test$(EXESUF)
