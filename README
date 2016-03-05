@@ -1,5 +1,7 @@
-FFmpeg README
+AMV FFmpeg README
 -------------
+This project contains the ffmpeg part of the abandoned amv-codec-tools project. The amv-codec-tools project sought to provide an endoder and player for the AMV format used by many cheap Chinese portable video players (Ruizu/Zebmate...).  
+
 
 1) Documentation
 ----------------

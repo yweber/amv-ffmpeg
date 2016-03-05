@@ -63,7 +63,7 @@
 
 #undef exit
 
-static const char program_name[] = "FFmpeg";
+static const char program_name[] = "AMV FFmpeg";
 static const int program_birth_year = 2000;
 
 /* select an input stream for an output stream */
@@ -3780,9 +3780,10 @@ static void log_callback_help(void* ptr, int level, const char* fmt, va_list vl)
 static void show_help(void)
 {
     av_log_set_callback(log_callback_help);
-    printf("usage: ffmpeg [[infile options] -i infile]... {[outfile options] outfile}...\n"
-           "Hyper fast Audio and Video encoder\n");
-    printf("\n");
+    puts("Usage: amv-ffmpeg [[infile options] -i infile]... {[outfile options] outfile}");
+    puts("A fast video encoder with support for AMV format. Works best with WMV files.");
+    puts("");
+
     show_help_options(options, "Main options:\n",
                       OPT_EXPERT | OPT_AUDIO | OPT_VIDEO, 0);
     show_help_options(options, "\nVideo options:\n",

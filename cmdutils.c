@@ -2,14 +2,14 @@
  * Various utilities for command line tools
  * Copyright (c) 2000-2003 Fabrice Bellard
  *
- * This file is part of FFmpeg.
+ * This file is part of AMV FFmpeg.
  *
- * FFmpeg is free software; you can redistribute it and/or
+ * AMV FFmpeg is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 2.1 of the License, or (at your option) any later version.
  *
- * FFmpeg is distributed in the hope that it will be useful,
+ * AMV FFmpeg is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
@@ -92,7 +92,7 @@ unknown_opt:
             if (po->flags & HAS_ARG) {
                 arg = argv[optindex++];
                 if (!arg) {
-                    fprintf(stderr, "%s: missing argument for option '%s'\n", argv[0], opt);
+                  //  fprintf(stderr, "%s: missing argument for option '%s'\n", argv[0], opt);
                     exit(1);
                 }
             }
@@ -156,7 +156,7 @@ void print_error(const char *filename, int err)
 
 void show_banner(const char *program_name, int program_birth_year)
 {
-    fprintf(stderr, "%s version " FFMPEG_VERSION ", Copyright (c) %d-2007 Fabrice Bellard, et al.\n",
+    fprintf(stderr, "%s version " FFMPEG_VERSION ", Copyright (c) %d-2016 Fabrice Bellard, et al.\n",
             program_name, program_birth_year);
     fprintf(stderr, "  configuration: " FFMPEG_CONFIGURATION "\n");
     fprintf(stderr, "  libavutil version: " AV_STRINGIFY(LIBAVUTIL_VERSION) "\n");
@@ -183,12 +183,12 @@ void show_license(void)
 {
 #ifdef CONFIG_GPL
     printf(
-    "FFmpeg is free software; you can redistribute it and/or modify\n"
+    "AMV FFmpeg is free software; you can redistribute it and/or modify\n"
     "it under the terms of the GNU General Public License as published by\n"
     "the Free Software Foundation; either version 2 of the License, or\n"
     "(at your option) any later version.\n"
     "\n"
-    "FFmpeg is distributed in the hope that it will be useful,\n"
+    "AMV FFmpeg is distributed in the hope that it will be useful,\n"
     "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
     "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
     "GNU General Public License for more details.\n"
