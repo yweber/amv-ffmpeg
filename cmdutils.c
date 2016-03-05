@@ -92,7 +92,7 @@ unknown_opt:
             if (po->flags & HAS_ARG) {
                 arg = argv[optindex++];
                 if (!arg) {
-                  //  fprintf(stderr, "%s: missing argument for option '%s'\n", argv[0], opt);
+                    fprintf(stderr, "\nMissing argument for option '%s'\nUse -h to display help. Use -format to list supported formats.", argv[0], opt);
                     exit(1);
                 }
             }
@@ -156,7 +156,7 @@ void print_error(const char *filename, int err)
 
 void show_banner(const char *program_name, int program_birth_year)
 {
-    fprintf(stderr, "%s version " FFMPEG_VERSION ", Copyright (c) %d-2016 Fabrice Bellard, et al.\n",
+    fprintf(stderr, "%s version " FFMPEG_VERSION "\nCopyright (c) %d-2016 Fabrice Bellard, et al.\n",
             program_name, program_birth_year);
     fprintf(stderr, "  configuration: " FFMPEG_CONFIGURATION "\n");
     fprintf(stderr, "  libavutil version: " AV_STRINGIFY(LIBAVUTIL_VERSION) "\n");
